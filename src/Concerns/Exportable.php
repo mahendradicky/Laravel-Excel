@@ -83,18 +83,6 @@ trait Exportable
     }
 
     /**
-     * @param string|null $writerType
-     *
-     * @return string
-     */
-    public function raw($writerType = null)
-    {
-        $writerType = $writerType ?? $this->writerType ?? null;
-
-        return $this->getExporter()->raw($this, $writerType);
-    }
-
-    /**
      * Create an HTTP response that represents the object.
      *
      * @param  \Illuminate\Http\Request $request

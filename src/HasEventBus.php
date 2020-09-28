@@ -26,11 +26,6 @@ trait HasEventBus
         }
     }
 
-    public function clearListeners()
-    {
-        $this->events = [];
-    }
-
     /**
      * Register a global event listener.
      *

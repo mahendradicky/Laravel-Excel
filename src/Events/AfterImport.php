@@ -2,6 +2,10 @@
 
 namespace Maatwebsite\Excel\Events;
 
+use App\Events\KegiatanDestroy;
+use App\Kegiatan;
+use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Support\Facades\Queue;
 use Maatwebsite\Excel\Reader;
 
 class AfterImport extends Event

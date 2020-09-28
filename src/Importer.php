@@ -17,7 +17,7 @@ interface Importer
      *
      * @return Reader|PendingDispatch
      */
-    public function import($import, $filePath, string $disk = null, string $readerType = null);
+    public function import($import, $filePath, string $disk = null, string $readerType = null, $type);
 
     /**
      * @param object              $import

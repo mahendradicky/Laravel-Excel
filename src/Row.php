@@ -38,33 +38,30 @@ class Row
     }
 
     /**
-     * @param null        $nullValue
-     * @param bool        $calculateFormulas
-     * @param bool        $formatData
-     *
-     * @param string|null $endColumn
+     * @param null $nullValue
+     * @param bool $calculateFormulas
+     * @param bool $formatData
      *
      * @return Collection
      */
-    public function toCollection($nullValue = null, $calculateFormulas = false, $formatData = true, ?string $endColumn = null): Collection
+    public function toCollection($nullValue = null, $calculateFormulas = false, $formatData = true): Collection
     {
-        return new Collection($this->toArray($nullValue, $calculateFormulas, $formatData, $endColumn));
+        return new Collection($this->toArray($nullValue, $calculateFormulas, $formatData));
     }
 
     /**
-     * @param null        $nullValue
-     * @param bool        $calculateFormulas
-     * @param bool        $formatData
-     * @param string|null $endColumn
+     * @param null $nullValue
+     * @param bool $calculateFormulas
+     * @param bool $formatData
      *
      * @return array
      */
-    public function toArray($nullValue = null, $calculateFormulas = false, $formatData = true, ?string $endColumn = null)
+    public function toArray($nullValue = null, $calculateFormulas = false, $formatData = true)
     {
         $cells = [];
 
         $i = 0;
-        foreach ($this->row->getCellIterator('A', $endColumn) as $cell) {
+        foreach ($this->row->getCellIterator() as $cell) {
             $value = (new Cell($cell))->getValue($nullValue, $calculateFormulas, $formatData);
 
             if (isset($this->headingRow[$i])) {

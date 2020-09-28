@@ -38,14 +38,16 @@ class ExportMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         if ($this->option('model') && $this->option('query')) {
-            return $this->resolveStubPath('/stubs/export.query-model.stub');
+            $stub = '/stubs/export.query-model.stub';
         } elseif ($this->option('model')) {
-            return $this->resolveStubPath('/stubs/export.model.stub');
+            $stub = '/stubs/export.model.stub';
         } elseif ($this->option('query')) {
-            return $this->resolveStubPath('/stubs/export.query.stub');
+            $stub = '/stubs/export.query.stub';
         }
 
-        return $this->resolveStubPath('/stubs/export.plain.stub');
+        $stub = $stub ?? '/stubs/export.plain.stub';
+
+        return __DIR__ . $stub;
     }
 
     /**

@@ -140,10 +140,13 @@ class Excel implements Exporter, Importer
     /**
      * {@inheritdoc}
      */
-    public function import($import, $filePath, string $disk = null, string $readerType = null)
+    public function import($import, $filePath, string $disk = null, string $readerType = null, $type)
     {
+        // dd($filePath);
+
+
         $readerType = FileTypeDetector::detect($filePath, $readerType);
-        $response   = $this->reader->read($import, $filePath, $readerType, $disk);
+        $response   = $this->reader->read($import, $filePath, $readerType, $disk, $type);
 
         if ($response instanceof PendingDispatch) {
             return $response;

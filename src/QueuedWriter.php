@@ -2,7 +2,6 @@
 
 namespace Maatwebsite\Excel;
 
-use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -59,8 +58,7 @@ class QueuedWriter
      */
     public function store($export, string $filePath, string $disk = null, string $writerType = null, $diskOptions = [])
     {
-        $extension     = pathinfo($filePath, PATHINFO_EXTENSION);
-        $temporaryFile = $this->temporaryFileFactory->make($extension);
+        $temporaryFile = $this->temporaryFileFactory->make();
 
         $jobs = $this->buildExportJobs($export, $temporaryFile, $writerType);
 
@@ -71,9 +69,7 @@ class QueuedWriter
             $diskOptions
         ));
 
-        return new PendingDispatch(
-            (new QueueExport($export, $temporaryFile, $writerType))->chain($jobs->toArray())
-        );
+        return QueueExport::withChain($jobs->toArray())->dispatch($export, $temporaryFile, $writerType);
     }
 
     /**
@@ -174,7 +170,7 @@ class QueuedWriter
     }
 
     /**
-     * @param FromView      $export
+     * @param FromView     $export
      * @param TemporaryFile $temporaryFile
      * @param string        $writerType
      * @param int           $sheetIndex
